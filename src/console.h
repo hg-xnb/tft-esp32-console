@@ -234,5 +234,5 @@ template<class... Tmsgs>
 void log2screen(Tmsgs... msgs){
     print_string(__concat_all("[", millis(), "] ", msgs...), true);
     print_char('\n');
-    show_canvas();
+    show_canvas(); 
 }
