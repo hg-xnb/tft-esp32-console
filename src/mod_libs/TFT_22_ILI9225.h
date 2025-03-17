@@ -1,38 +1,16 @@
 #ifndef TFT_22_ILI9225_h
 #define TFT_22_ILI9225_h
 
-#ifdef __STM32F1__
-#define ARDUINO_STM32_FEATHER
-#define  PROGMEM
-// if 'SPI_CHANNEL' is not defined, 'SPI' is used, only valid for STM32F1
-//#define SPI_CHANNEL SPI_2
-#endif
+#include "Arduino.h"
+#define STRING String
 
-#define USE_STRING_CLASS
-
-#ifdef USE_STRING_CLASS
-    #define STRING String
-#else
-    #define STRING const char *
-#endif
-
-#if ARDUINO >= 100
-    #include "Arduino.h"
-#else
-    #include "WProgram.h"
-#endif
+/// ADDED BY NGXXFUS --BEGIN
 #include <SPI.h>
-#include "mod_libs/gfxfont.h"
-
-#if defined(ARDUINO_STM32_FEATHER) || defined(ARDUINO_ARCH_STM32) || defined(ARDUINO_ARCH_STM32F1) || defined(STM32F1)
-typedef volatile uint32_t RwReg;
-#endif
-#if defined(ARDUINO_FEATHER52)
-typedef volatile uint32_t RwReg;
-#endif
+#include "gfxfont.h"
+/// ADDED BY NGXXFUS --END
 
 /* ILI9225 screen size */
-#define ILI9225_LCD_WIDTH  176
+#define ILI9225_LCD_WIDTH  178
 #define ILI9225_LCD_HEIGHT 220
 
 /* ILI9225 LCD Registers */
@@ -168,7 +146,7 @@ class TFT_22_ILI9225 {
 #endif
 
         /// Clear the screen
-        void clear(void); 
+        // void clear(void); 
 
         /// Invert screen
         /// @param     flag true to invert, false for normal screen
@@ -212,179 +190,23 @@ class TFT_22_ILI9225 {
         /// @note     220 means 220 pixels and thus 0..219 coordinates (decimal)
         uint16_t maxY(void);
 
-        // /// Draw circle
-        // /// @param    x0 center, point coordinate, x-axis
-        // /// @param    y0 center, point coordinate, y-axis
-        // /// @param    radius radius
-        // /// @param    color 16-bit color
-        // void drawCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);  
+        // /// Set background color
+        // /// @param    color background color, default=black
+        // void setBackgroundColor(uint16_t color = COLOR_BLACK);  
 
-        // /// Draw solid circle
-        // /// @param    x0 center, point coordinate, x-axis
-        // /// @param    y0 center, point coordinate, y-axis
-        // /// @param    radius radius
-        // /// @param    color 16-bit color
-        // void fillCircle(uint8_t x0, uint8_t y0, uint8_t radius, uint16_t color); 
-
-        /// Set background color
-        /// @param    color background color, default=black
-        void setBackgroundColor(uint16_t color = COLOR_BLACK);  
-
-        // /// Draw line, rectangle coordinates
-        // /// @param    x1 start point coordinate, x-axis
-        // /// @param    y1 start point coordinate, y-axis
-        // /// @param    x2 end point coordinate, x-axis
-        // /// @param    y2 end point coordinate, y-axis
-        // /// @param    color 16-bit color
-        // void drawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color); 
-
-        // /// Draw rectangle, rectangle coordinates
+        // /// Draw solid rectangle, rectangle coordinates
         // /// @param    x1 top left coordinate, x-axis
         // /// @param    y1 top left coordinate, y-axis
         // /// @param    x2 bottom right coordinate, x-axis
         // /// @param    y2 bottom right coordinate, y-axis
         // /// @param    color 16-bit color
-        // void drawRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color); 
-
-        /// Draw solid rectangle, rectangle coordinates
-        /// @param    x1 top left coordinate, x-axis
-        /// @param    y1 top left coordinate, y-axis
-        /// @param    x2 bottom right coordinate, x-axis
-        /// @param    y2 bottom right coordinate, y-axis
-        /// @param    color 16-bit color
-        void fillRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
+        // void fillRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
 
         /// Draw pixel
         /// @param    x1 point coordinate, x-axis
         /// @param    y1 point coordinate, y-axis
         /// @param    color 16-bit color
         void drawPixel(uint16_t x1, uint16_t y1, uint16_t color);  
-
-        // /// Draw ASCII Text (pixel coordinates)
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    s text string
-        // /// @param    color 16-bit color, default=white
-        // /// @return   x-position behind text
-        // uint16_t  drawText(uint16_t x, uint16_t y, STRING s, uint16_t color = COLOR_WHITE);
-        
-        // /// width of an ASCII Text (pixel )
-        // /// @param    s text string
-        // uint16_t getTextWidth( STRING s ) ;
-        
-        // /// Calculate 16-bit color from 8-bit Red-Green-Blue components
-        // /// @param    red red component, 0x00..0xff
-        // /// @param    green green component, 0x00..0xff
-        // /// @param    blue blue component, 0x00..0xff
-        // /// @return   16-bit color
-        // uint16_t setColor(uint8_t red, uint8_t green, uint8_t blue);
-
-        // /// Calculate 8-bit Red-Green-Blue components from 16-bit color
-        // /// @param    rgb 16-bit color
-        // /// @param    red red component, 0x00..0xff
-        // /// @param    green green component, 0x00..0xff
-        // /// @param    blue blue component, 0x00..0xff
-        // void splitColor(uint16_t rgb, uint8_t &red, uint8_t &green, uint8_t &blue);
-
-        // /// Draw triangle, triangle coordinates
-        // /// @param    x1 corner 1 coordinate, x-axis
-        // /// @param    y1 corner 1 coordinate, y-axis
-        // /// @param    x2 corner 2 coordinate, x-axis
-        // /// @param    y2 corner 2 coordinate, y-axis
-        // /// @param    x3 corner 3 coordinate, x-axis
-        // /// @param    y3 corner 3 coordinate, y-axis
-        // /// @param    color 16-bit color
-        // void drawTriangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t color); 
-
-        // /// Draw solid triangle, triangle coordinates
-        // /// @param    x1 corner 1 coordinate, x-axis
-        // /// @param    y1 corner 1 coordinate, y-axis
-        // /// @param    x2 corner 2 coordinate, x-axis
-        // /// @param    y2 corner 2 coordinate, y-axis
-        // /// @param    x3 corner 3 coordinate, x-axis
-        // /// @param    y3 corner 3 coordinate, y-axis
-        // /// @param    color 16-bit color
-        // void fillTriangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t color);
-
-        // /// Set current font
-        // /// @param    font Font name
-        // void setFont(uint8_t* font, bool monoSp=false ); // default = proportional
-        
-        // /// Get current font
-        // _currentFont getFont();
-        
-        // /// Draw single character (pixel coordinates)
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    ch ASCII character
-        // /// @param    color 16-bit color, default=white
-        // /// @return   width of character in display pixels
-        // uint16_t drawChar(uint16_t x, uint16_t y, uint16_t ch, uint16_t color = COLOR_WHITE);
-
-        // /// width of an ASCII character (pixel )
-        // /// @param    ch ASCII character
-        // uint16_t getCharWidth( uint16_t ch ) ;
-        
-        // /// Draw bitmap
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    bitmap 
-        // /// @param    w width
-        // /// @param    h height
-        // /// @param    color 16-bit color, default=white
-        // /// @param    bg 16-bit color, background
-        // void drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color);
-        // void drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg);
-        // void drawBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h, uint16_t color);
-        // void drawBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg);
-
-        // void drawXBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color);
-        // void drawXBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg);
-        
-        // /// Draw bitmap
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    bitmap, 2D 16bit color bitmap 
-        // /// @param    w width
-        // /// @param    h height
-        // void drawBitmap(uint16_t x, uint16_t y, const uint16_t** bitmap, int16_t w, int16_t h);
-        // void drawBitmap(uint16_t x, uint16_t y, uint16_t** bitmap, int16_t w, int16_t h);
-
-        // /// Draw bitmap
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    bitmap, 1D 16bit color bitmap
-        // /// @param    w width
-        // /// @param    h height
-        // void drawBitmap(uint16_t x, uint16_t y, const uint16_t* bitmap, int16_t w, int16_t h);
-        // void drawBitmap(uint16_t x, uint16_t y, uint16_t* bitmap, int16_t w, int16_t h);
-
-        // /// Set current GFX font
-        // /// @param    f GFX font name defined in include file
-        // void setGFXFont(const GFXfont *f = NULL);
-
-        // /// Draw a string with the current GFX font
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    s string to print
-        // /// @param    color 16-bit color
-        // void drawGFXText(int16_t x, int16_t y, STRING s, uint16_t color);
-        
-        // /// Get the width & height of a text string with the current GFX font
-        // /// @param    str string to analyze
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    w width in pixels of string 
-        // /// @param    h height in pixels of string
-        // void getGFXTextExtent(STRING str, int16_t x, int16_t y, int16_t *w, int16_t *h);
-        
-        // /// Draw a single character with the current GFX font
-        // /// @param    x point coordinate, x-axis
-        // /// @param    y point coordinate, y-axis
-        // /// @param    c character to draw
-        // /// @param    color 16-bit color
-        // /// @return   width of character in display pixels
-        // uint16_t drawGFXChar(int16_t x, int16_t y, unsigned char c, uint16_t color);
 
     private:
 

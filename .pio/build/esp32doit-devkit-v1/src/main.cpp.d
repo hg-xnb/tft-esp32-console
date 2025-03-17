@@ -1,4 +1,4 @@
-.pio/build/esp32doit-devkit-v1/src/main.cpp.o: src/main.cpp src/main.h \
+.pio/build/esp32doit-devkit-v1/src/main.cpp.o: src/main.cpp \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -133,7 +133,10 @@
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
- src/firebase_utils.h src/serial_utils.h \
+ src/console.h src/mod_libs/TFT_22_ILI9225.h \
+ /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
+ /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
+ src/mod_libs/gfxfont.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/IPv6Address.h \
@@ -202,8 +205,6 @@
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src/LittleFS.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/libraries/FS/src/FS.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/libraries/SD/src/SD.h \
- /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
- /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
  /home/ngxxfus/.platformio/packages/framework-arduinoespressif32/libraries/SD/src/sd_defines.h \
  .pio/libdeps/esp32doit-devkit-v1/Firebase\ Arduino\ Client\ Library\ for\ ESP8266\ and\ ESP32/src/././core/Firebase_Build_Options.h \
  .pio/libdeps/esp32doit-devkit-v1/Firebase\ Arduino\ Client\ Library\ for\ ESP8266\ and\ ESP32/src/./FB_Const.h \
@@ -288,7 +289,4 @@
  .pio/libdeps/esp32doit-devkit-v1/Firebase\ Arduino\ Client\ Library\ for\ ESP8266\ and\ ESP32/src/functions/FunctionsConfig.h \
  .pio/libdeps/esp32doit-devkit-v1/Firebase\ Arduino\ Client\ Library\ for\ ESP8266\ and\ ESP32/src/functions/PolicyBuilder.h \
  .pio/libdeps/esp32doit-devkit-v1/Firebase\ Arduino\ Client\ Library\ for\ ESP8266\ and\ ESP32/src/functions/FunctionsConfig.h \
- src/tft_utils.h src/serial_utils.h src/mod_libs/TFT_22_ILI9225_MOD.h \
- src/mod_libs/TFT_22_ILI9225.h src/mod_libs/gfxfont.h \
- src/mod_libs/fonts/FreeSerif9pt7b.h \
  .pio/libdeps/esp32doit-devkit-v1/DHT\ sensor\ library/DHT.h
