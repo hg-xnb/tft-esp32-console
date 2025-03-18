@@ -234,5 +234,20 @@ template<class... Tmsgs>
 void log2screen(Tmsgs... msgs){
     print_string(__concat_all("[", millis(), "] ", msgs...), true);
     print_char('\n');
+}
+
+template<class... Tmsgs>
+void log2screen2(Tmsgs... msgs){
+    print_string(__concat_all("[", millis(), "] ", msgs...), true);
+    print_char('\n');
     show_canvas(); 
 }
+
+
+/*
+Userguide:
++ show_canvas(): send data in the canvas to the screen. This function compare and only show changed pixels!
++ log2screen(): create log in the screen
++ log2screen2(): create log in the screen and show immediately
+
+*/

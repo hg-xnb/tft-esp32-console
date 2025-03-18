@@ -39,7 +39,12 @@ bool DEV_STAT[4];
 /// FOR DEBUG ------------------------------------------------------------ ///
 #define PRINT_MSG log2screen
 #ifndef PRINT_MSG
-    #define PRINT_MSG log2ser
+    #define PRINT_MSG2 log2ser
+#endif
+
+#define PRINT_MSG2 log2screen2
+#ifndef PRINT_MSG2
+    #define PRINT_MSG2 log2ser
 #endif
 
 /// FOR FIREBASE AND WIFI ------------------------------------------------ ///
@@ -64,12 +69,12 @@ void init_wifi(){
     WiFi.disconnect();
     WiFi.begin(WIFI_SSID, WIFI_PWD);
     do{
-        PRINT_MSG("WiFi-Status: ", WiFi.status());
-        PRINT_MSG("Connecting to Wi-fi...");
+        PRINT_MSG2("WiFi-Status: ", WiFi.status());
+        PRINT_MSG2("Connecting to Wi-fi...");
         delay(2000);
     }while(WiFi.status() != WL_CONNECTED);
-    PRINT_MSG("Connected to Wi-fi!");
-    PRINT_MSG("IP-Addr: ", WiFi.localIP().toString());
+    PRINT_MSG2("Connected to Wi-fi!");
+    PRINT_MSG2("IP-Addr: ", WiFi.localIP().toString());
 }
 
 
@@ -79,7 +84,7 @@ uint16_t fetch_fb(bool* DEV, uint16_t num, String root = "/"){
     for(uint16_t i = 0; i < num; ++i){
         path  = root; path.concat(i);
         if( !Firebase.RTDB.getBool(&firebaseData, path) ){
-            PRINT_MSG("Failed to get data from ", path, "!");
+            PRINT_MSG2("Failed to get data from ", path, "!");
             ++failed;
         }else{
             DEV[i] = firebaseData.boolData();
@@ -96,13 +101,13 @@ uint16_t upload_fb(float humidity, float temperature, String root="/"){
 
     String path  = root;    path.concat("humid");
     if( !Firebase.RTDB.setString(&firebaseData, path, String(humidity)) ){
-        PRINT_MSG("Failed to set humidity value!");
+        PRINT_MSG2("Upload `humid`: Failed!");
         ++failed;
     }
 
     path  = root;    path.concat("temp");
     if( !Firebase.RTDB.setString(&firebaseData, path, String(temperature)) ){
-        PRINT_MSG("Failed to set temperature value!");
+        PRINT_MSG2("Upload `temp`: Failed!");
         ++failed;
     }
 
@@ -110,7 +115,7 @@ uint16_t upload_fb(float humidity, float temperature, String root="/"){
 }
 
 void init_firebase() {
-    PRINT_MSG("Connecting to Firebase...");
+    PRINT_MSG2("Connecting to Firebase...");
     config.api_key = API_KEY;
     config.database_url = DATABASE_URL;
     auth.user.email = EMAIL;
@@ -118,7 +123,7 @@ void init_firebase() {
     do Firebase.begin(&config, &auth);
     while(!Firebase.ready());
     Firebase.reconnectWiFi(true);
-    PRINT_MSG("Connected to Firebase!");
+    PRINT_MSG2("Connected to Firebase!");
 }
 
 /// FOR DHT-11 ----------------------------------------------------------- ///
@@ -143,6 +148,10 @@ void loop(){
     float humid = dht.readHumidity(),
           temp  = dht.readTemperature();
 
+    PRINT_MSG("DONE! Result:");
+    PRINT_MSG(label[0], ": ", ENV_STAT[0]);
+    PRINT_MSG(label[1], ": ", ENV_STAT[1]);
+
     PRINT_MSG("Uploading data...");
     if((ENV_STAT[0] != humid) || (ENV_STAT[1] != temp)){
         ENV_STAT[0] = humid; ENV_STAT[1] = temp;
@@ -153,12 +162,9 @@ void loop(){
     fetch_fb(DEV_STAT, 4, "/devices-1/");
     
     PRINT_MSG("DONE! Result:");
-    for(uint8_t i = 0; i < 6; i++){
-        if (i < 2){
-            PRINT_MSG(label[i], ": ", ENV_STAT[i]);
-        }else{
-            PRINT_MSG(label[i], ": ", String(DEV_STAT[i-2]?"ON":"OFF"));
-        }
+    for(uint8_t i = 2; i < 6; i++){
+        PRINT_MSG(label[i], ": ", String(DEV_STAT[i-2]?"ON":"OFF"));
     }
     PRINT_MSG();
+    show_canvas();
 };
