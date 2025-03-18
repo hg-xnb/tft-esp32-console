@@ -37,7 +37,7 @@ float ENV_STAT[2];
 bool DEV_STAT[4];
 
 /// FOR DEBUG ------------------------------------------------------------ ///
-#define PRINT_MSG log2screen
+#define PRINT_MSG log2screen2
 #ifndef PRINT_MSG
     #define PRINT_MSG2 log2ser
 #endif
@@ -166,5 +166,4 @@ void loop(){
         PRINT_MSG(label[i], ": ", String(DEV_STAT[i-2]?"ON":"OFF"));
     }
     PRINT_MSG();
-    show_canvas();
 };

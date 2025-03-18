@@ -31,8 +31,8 @@ uint16_t xpp = 0, ypp = 0; /// pp : print pointer
 
 #include <vector>
 
-std::vector<std::vector<bool>>canvas(maxX, std::vector<bool>(maxY, 0)),
-                                  old_canvas(maxX, std::vector<bool>(maxY, 0));
+std::vector<std::vector<bool>>  canvas(maxX, std::vector<bool>(maxY, 0)),
+                                old_canvas(maxX, std::vector<bool>(maxY, 0));
 
 /// flags
 enum print_pointer_flags {
