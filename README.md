@@ -1,6 +1,6 @@
 # ```console``` for TFT 2.2" ILI9225 screen with esp32
 
-Too lazy too write anything...
+Too lazy to write anything...
 
 ## Note
 
